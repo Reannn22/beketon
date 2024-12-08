@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
@@ -20,10 +21,12 @@ class RoleMiddleware
 
     public function handle(Request $request, Closure $next, string $role)
     {
-        if (auth()->check() && auth()->user()->role === $role) {
+         // Pastikan pengguna sudah login
+        if (Auth::check() && Auth::user()->role === $role) {
             return $next($request);
         }
 
+        // Abort jika tidak memiliki izin
         abort(403, 'Akses ditolak. Anda tidak memiliki izin untuk halaman ini.');
     }
 }

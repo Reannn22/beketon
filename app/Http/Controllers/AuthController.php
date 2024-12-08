@@ -22,14 +22,17 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
+    
+            // Tambahkan pesan sukses
+            session()->flash('success', 'Login berhasil! Selamat datang.');
+    
             // Arahkan berdasarkan role
             return redirect('/dashboard');
         }
-
+    
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ]);
