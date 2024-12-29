@@ -1,66 +1,121 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pinjampro: Sistem Informasi Peminjaman Barang
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Pinjampro** adalah aplikasi web yang dirancang untuk mengelola proses peminjaman barang dengan fitur pengguna dan admin. Sistem ini memungkinkan pengguna meminjam barang yang tersedia, sementara admin dapat mengelola barang, pengguna, dan aktivitas dalam sistem.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📂 Rancangan Database
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Tabel `users`
+Menyimpan data pengguna yang dapat meminjam atau mengelola barang.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Kolom       | Tipe Data | Deskripsi                                   |
+|-------------|-----------|---------------------------------------------|
+| `id`        | INT       | Primary Key, Auto Increment                |
+| `name`      | VARCHAR   | Nama pengguna                              |
+| `email`     | VARCHAR   | Email pengguna (unik)                      |
+| `password`  | VARCHAR   | Password pengguna (dalam format hashed)    |
+| `role`      | ENUM      | Peran pengguna (`admin` atau `user`, Default: `user`) |
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Tabel `items`
+Menyimpan data barang yang bisa dipinjam.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+| Kolom        | Tipe Data | Deskripsi                  |
+|--------------|-----------|----------------------------|
+| `id`         | INT       | Primary Key, Auto Increment|
+| `name`       | VARCHAR   | Nama barang               |
+| `description`| TEXT      | Deskripsi barang          |
+| `stock`      | INT       | Jumlah barang tersedia    |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+### Tabel `loans`
+Mencatat informasi peminjaman barang.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Kolom         | Tipe Data | Deskripsi                                  |
+|---------------|-----------|--------------------------------------------|
+| `id`          | INT       | Primary Key, Auto Increment               |
+| `user_id`     | INT       | Foreign Key, Relasi ke `users.id`         |
+| `item_id`     | INT       | Foreign Key, Relasi ke `items.id`         |
+| `amount`      | INT       | Jumlah Barang yang dipinjam               |
+| `borrow_date` | DATE      | Tanggal peminjaman                        |
+| `return_date` | DATE      | Tanggal pengembalian (NULL jika belum dikembalikan) |
+| `status`      | ENUM      | Status (`borrowed` atau `returned`, Default: `borrowed`) |
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Tabel `logs` *(Opsional)*
+Menyimpan log aktivitas dalam sistem.
 
-## Contributing
+| Kolom       | Tipe Data | Deskripsi                                   |
+|-------------|-----------|---------------------------------------------|
+| `id`        | INT       | Primary Key, Auto Increment                |
+| `action`    | VARCHAR   | Aksi yang dilakukan (contoh: "pinjam barang") |
+| `user_id`   | INT       | Foreign Key, Relasi ke `users.id`          |
+| `item_id`   | INT       | Foreign Key, Relasi ke `items.id`          |
+| `amount`    | INT       | Jumlah Barang yang dipinjam                |
+| `timestamp` | TIMESTAMP | Waktu aktivitas dilakukan                  |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🔄 Cara Kerja
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 1. Proses Peminjaman
+1. Pengguna login ke sistem.
+2. Pengguna memilih barang yang ingin dipinjam.
+3. Sistem memeriksa ketersediaan barang (`stock > 0`).
+4. Jika tersedia:
+   - Sistem mencatat data peminjaman di tabel `loans`.
+   - `stock` barang dikurangi sesuai jumlah barang yang dipinjam.
+   - Log aktivitas disimpan *(opsional)*.
 
-## Security Vulnerabilities
+### 2. Proses Pengembalian
+1. Pengguna melihat daftar barang yang sedang dipinjam.
+2. Pengguna memilih barang yang ingin dikembalikan.
+3. Sistem memperbarui status di tabel `loans` menjadi `returned` dan mengisi `return_date`.
+4. `stock` barang bertambah 1.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Fitur Admin
+Admin memiliki akses tambahan untuk:
+- Menambah, mengedit, dan menghapus data barang.
+- Melihat log aktivitas pengguna.
+- Mengelola data pengguna *(opsional)*.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🖥️ Mockup Halaman Website
+
+### 1. Halaman Login
+- Form login untuk pengguna dan admin.
+
+### 2. Dashboard
+- **Pengguna**: Menampilkan daftar barang yang tersedia dan status peminjaman.
+- **Admin**: Menampilkan statistik barang dan aktivitas peminjaman.
+
+### 3. Halaman Peminjaman
+- Daftar barang yang bisa dipinjam.
+- Tombol "Pinjam" dengan validasi ketersediaan barang.
+
+### 4. Halaman Pengembalian
+- Daftar barang yang sedang dipinjam oleh pengguna.
+- Tombol "Kembalikan" untuk mengembalikan barang.
+
+### 5. Halaman Admin
+- CRUD barang (Tambah, Edit, Hapus barang).
+- Daftar log aktivitas pengguna.
+
+---
+
+## 🚀 Fitur Utama
+- **Role Management**: Peran pengguna sebagai admin atau user.
+- **Peminjaman Barang**: Meminjam barang dengan validasi ketersediaan stok.
+- **Pengembalian Barang**: Mengembalikan barang dengan pembaruan status dan stok.
+- **CRUD Barang**: Admin dapat mengelola data barang.
+- **Log Aktivitas** *(Opsional)*: Melacak aktivitas dalam sistem.
+
+---
+
+## 📑 Lisensi
+Proyek ini menggunakan lisensi [MIT](https://opensource.org/licenses/MIT).
