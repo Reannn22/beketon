@@ -118,4 +118,5 @@ Admin memiliki akses tambahan untuk:
 ---
 
 ## 📑 Lisensi
-Proyek ini menggunakan lisensi [MIT](https://opensource.org/licenses/MIT).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
