@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    
+
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Avatar.png') }}">
 
     <!-- Flowbite -->
@@ -17,8 +17,8 @@
     <section class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
-                PinjamPro    
+                <img class="w-8 h-8 mr-2" src="{{ asset('assets/img/logo.jpg') }}" alt="logo">
+                LendEase
             </a>
             <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -102,7 +102,7 @@
 
 
     <script>
-        
+
         function showAlert() {
             const alert = document.getElementById('alert-3');
             alert.style.display = 'flex';
@@ -114,7 +114,7 @@
 
         showAlert()
     </script>
-    
+
     <!-- Flowbite JS -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>

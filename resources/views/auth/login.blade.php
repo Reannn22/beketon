@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    
+
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Avatar.png') }}">
 
     <!-- Flowbite -->
@@ -16,9 +16,9 @@
     <section class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+                <img class="w-8 h-8 mr-2" src="{{ asset('assets/img/logo.jpg') }}"
                     alt="logo">
-                    PinjamPro
+                    LendEase
             </a>
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -57,7 +57,7 @@
         </div>
     </section>
 
-    
+
     @if (session('success'))
         <div id="alert-3" class="fixed top-4 right-4 z-50 flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50" role="alert">
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -104,7 +104,7 @@
     @endif
 
     <script>
-        
+
         function showAlert() {
             const alert = document.getElementById('alert-3');
             alert.style.display = 'flex';

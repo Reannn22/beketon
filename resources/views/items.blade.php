@@ -33,8 +33,8 @@
         <div class="h-full px-4 py-12 overflow-y-auto bg-gray-50">
             <!-- Logo -->
             <a href="#" class="flex items-center ps-2.5 mb-10">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap">PinjamPro</span>
+                <img src="{{ asset('assets/img/logo.jpg') }}" class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap">LendEase</span>
             </a>
             <ul class="space-y-2 py-4 font-medium">
                 <li>
@@ -91,7 +91,7 @@
                 <li>
                     <a href="{{ route('logs') }}"
                         class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white" 
+                        <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 512 512">
                             <path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/>

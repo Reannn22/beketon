@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Lentora</title>
+    <title>Dashboard - LendEase</title>
 
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Avatar.png') }}">
 
@@ -33,8 +33,8 @@
         <div class="h-full flex flex-col justify-normal px-4 py-12 overflow-y-auto bg-gray-50">
             <!-- Logo -->
             <a href="#" class="flex items-center ps-2.5 mb-10">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 me-3 sm:h-7" alt="PinjamPro Logo" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap">PinjamPro</span>
+                <img src="{{ asset('assets/img/logo.jpg') }}" class="h-6 me-3 sm:h-7" alt="LendEase Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap">LendEase</span>
             </a>
             @if (auth()->user()->role === 'admin')
                 <ul class="space-y-2 py-4 font-medium">
@@ -91,7 +91,7 @@
                     <li>
                         <a href="{{ route('logs') }}"
                             class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
-                            <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white" 
+                            <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 512 512">
                                 <path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/>
@@ -144,7 +144,7 @@
                     <li>
                         <a href="{{ route('logs') }}"
                             class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
-                            <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white" 
+                            <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 512 512">
                                 <path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/>
@@ -186,7 +186,7 @@
                 <div class="flex flex-col gap-6 justify-start items-start p-8 lg:p-0">
                     <h1 class="text-3xl font-bold">Welcome, {{ auth()->user()->name }}!</h1>
                     <p class="text-lg font-medium">
-                        PinjamPro is an application designed to streamline the inventory
+                        LendEase is an application designed to streamline the inventory
                         management process, from recording to updating stock items
                     </p>
                     <a href="#" class="bg-primary text-white font-bold px-8 py-2 rounded-xl">
@@ -299,7 +299,7 @@
         </div>
     </div>
 
-    
+
     @if (session('success'))
         <div id="alert-3" class="fixed top-4 right-4 z-50 flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50" role="alert">
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -346,7 +346,7 @@
     @endif
 
     <script>
-        
+
         function showAlert() {
             const alert = document.getElementById('alert-3');
             alert.style.display = 'flex';
