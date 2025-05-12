@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Lentora</title>
+    <title>Dashboard - LendEase</title>
 
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Avatar.png') }}">
 
@@ -37,7 +37,7 @@
             @if (auth()->user()->role === 'admin')
             <ul class="space-y-2 py-4 font-medium">
                 <li>
-                    <a href="{{ route('dashboard') }}" class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-secondary group">
+                    <a href="{{ route('dashboard') }}" class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
                         <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white " aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                             <path
@@ -50,7 +50,7 @@
                 </li>
                 <li>
                     <a href="{{ route('items') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-secondary group">
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
                         <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 18 18">
@@ -62,7 +62,7 @@
                 </li>
                 <li>
                     <a href="#"
-                        class="flex items-center p-2 text-white rounded-lg bg-secondary group">
+                        class="flex items-center p-2 text-white rounded-lg bg-primary group">
                         <svg class="w-5 h-5 text-white transition duration-75"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -76,7 +76,7 @@
                 </li>
                 <li>
                     <a href="{{ route('users') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-secondary group">
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
                         <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 18">
@@ -114,7 +114,7 @@
             @elseif (auth()->user()->role === 'user')
             <ul class="space-y-2 py-4 font-medium">
                 <li>
-                    <a href="{{ route('dashboard') }}" class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-secondary group">
+                    <a href="{{ route('dashboard') }}" class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
                         <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white " aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                             <path
@@ -127,7 +127,7 @@
                 </li>
                 <li>
                     <a href="#"
-                        class="flex items-center p-2 text-white rounded-lg bg-secondary group">
+                        class="flex items-center p-2 text-white rounded-lg bg-primary group">
                         <svg class="w-5 h-5 text-white transition duration-75"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -171,7 +171,7 @@
     <!-- Content -->
     <div class="sm:ml-64 bg-[#EEEEEE] pb-5">
         <div class="rounded-lg">
-            <div class="flex flex-col items-start justify-start px-4 py-4 h-72 mb-4 bg-secondary">
+            <div class="flex flex-col items-start justify-start px-4 py-4 h-72 mb-4 bg-primary">
                 <p class="text-md text-white">
                     Pages / Peminjaman Barang
                 </p>

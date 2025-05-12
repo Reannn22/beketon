@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Lentora</title>
+    <title>Dashboard - LendEase</title>
 
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Avatar.png') }}">
 
@@ -39,7 +39,7 @@
             <ul class="space-y-2 py-4 font-medium">
                 <li>
                     <a href="{{ route('dashboard') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-secondary group">
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
                         <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 22 21">
@@ -53,7 +53,7 @@
                 </li>
                 <li>
                     <a href="{{ route('items') }}"
-                        class="flex items-center p-2 text-white rounded-lg bg-secondary group">
+                        class="flex items-center p-2 text-white rounded-lg bg-primary group">
                         <svg class="w-5 h-5 text-white transition duration-75" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                             <path
@@ -64,7 +64,7 @@
                 </li>
                 <li>
                     <a href="{{ route('pinjamBarang') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-secondary group">
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
                         <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -78,7 +78,7 @@
                 </li>
                 <li>
                     <a href="{{ route('users') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-secondary group">
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
                         <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 18">
@@ -119,7 +119,7 @@
     <!-- Content -->
     <div class="sm:ml-64 bg-[#EEEEEE] h-screen pb-5">
         <div class="rounded-lg">
-            <div class="flex flex-col items-start justify-start px-4 py-4 h-72 mb-4 bg-secondary">
+            <div class="flex flex-col items-start justify-start px-4 py-4 h-72 mb-4 bg-primary">
                 <p class="text-md text-white">
                     Pages / Inventaris
                 </p>
@@ -131,7 +131,7 @@
                 <div class="flex flex-col gap-6 justify-start items-start p-8 lg:p-0">
                     <h1 class="text-2xl font-bold">List Inventaris</h1>
                     <button data-modal-target="addItem-modal" data-modal-toggle="addItem-modal"
-                        class="font-medium bg-primary text-white px-9 py-2 rounded-lg hover:underline" type="button">
+                        class="font-medium bg-secondary text-white px-9 py-2 rounded-lg hover:underline" type="button">
                         Tambah Barang
                     </button>
                 </div>
@@ -265,7 +265,7 @@
                                                                             <label for="description"
                                                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Barang
                                                                             </label>
-                                                                            <input type="text" id="description" name="description"
+                                                                            <input type="text" id="description" name="description" 
                                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                                                 value="{{ $item->description }}" required />
                                                                         </div>
@@ -273,7 +273,7 @@
                                                                             <label for="stock"
                                                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock Barang
                                                                             </label>
-                                                                            <input type="text" id="stock" name="stock"
+                                                                            <input type="text" id="stock" name="stock" 
                                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                                                 value="{{ $item->stock }}" required />
                                                                         </div>
@@ -349,19 +349,19 @@
                         </div>
                         <div class="mb-5">
                             <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Deskripsi Barang
                             </label>
-                            <input type="text" id="description" name="description"
+                            <input type="text" id="description" name="description" placeholder="Masukkan deskripsi barang"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required />
                         </div>
                         <div class="mb-5">
                             <label for="stock"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                                Stock Barang
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Stok Barang
                             </label>
-                            <input type="text" id="stock" name="stock"
+                            <input type="text" id="stock" name="stock" placeholder="Masukkan stok barang"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required />
                         </div>

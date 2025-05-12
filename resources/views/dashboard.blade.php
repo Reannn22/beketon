@@ -189,7 +189,7 @@
                         LendEase is an application designed to streamline the inventory
                         management process, from recording to updating stock items
                     </p>
-                    <a href="#" class="bg-primary text-white font-bold px-8 py-2 rounded-xl">
+                    <a href="/items" class="bg-primary text-white font-bold px-8 py-2 rounded-xl">
                         Lihat Semua Barang
                     </a>
                 </div>
