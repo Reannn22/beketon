@@ -19,8 +19,9 @@ return [
         'tests',
     ],
     'listeners' => [
-        'Illuminate\Database\Events\QueryExecuted' => [
-            'App\Listeners\QueryListener',
-        ],
+        // Remove or comment out this section
+        // 'Illuminate\Database\Events\QueryExecuted' => [
+        //     'App\Listeners\QueryListener',
+        // ],
     ],
 ];
