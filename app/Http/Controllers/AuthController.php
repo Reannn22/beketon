@@ -57,7 +57,7 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => 'user', // Default role user
+            'role' => 'user', // Default role user            
         ]);
 
         return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');

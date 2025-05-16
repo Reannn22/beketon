@@ -160,11 +160,15 @@
                                 <th scope="col" class="px-6 py-3">
                                     Password
                                 </th>
+                                
                                 <th scope="col" class="px-6 py-3">
                                     Roles
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    KTP/KTM
                                 </th>
                             </tr>
                         </thead>
