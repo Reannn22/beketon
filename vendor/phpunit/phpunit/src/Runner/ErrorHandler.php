@@ -19,7 +19,6 @@ use const E_ERROR;
 use const E_NOTICE;
 use const E_PARSE;
 use const E_RECOVERABLE_ERROR;
-use const E_STRICT;
 use const E_USER_DEPRECATED;
 use const E_USER_ERROR;
 use const E_USER_NOTICE;
@@ -32,6 +31,7 @@ use function defined;
 use function error_reporting;
 use function restore_error_handler;
 use function set_error_handler;
+use function sprintf;
 use PHPUnit\Event;
 use PHPUnit\Event\Code\IssueTrigger\IssueTrigger;
 use PHPUnit\Event\Code\NoTestCaseObjectOnCallStackException;
@@ -57,7 +57,6 @@ final class ErrorHandler
     private bool $enabled                     = false;
     private ?int $originalErrorReportingLevel = null;
     private readonly Source $source;
-    private readonly SourceFilter $sourceFilter;
 
     /**
      * @var ?array{functions: list<non-empty-string>, methods: list<array{className: class-string, methodName: non-empty-string}>}
@@ -71,8 +70,7 @@ final class ErrorHandler
 
     private function __construct(Source $source)
     {
-        $this->source       = $source;
-        $this->sourceFilter = new SourceFilter;
+        $this->source = $source;
     }
 
     /**
@@ -91,7 +89,7 @@ final class ErrorHandler
          *
          * @see https://github.com/sebastianbergmann/phpunit/issues/5956
          */
-        if (defined('E_STRICT') && $errorNumber === @E_STRICT) {
+        if (defined('E_STRICT') && $errorNumber === 2048) {
             $errorNumber = E_NOTICE;
         }
 
@@ -175,6 +173,7 @@ final class ErrorHandler
                     $ignoredByBaseline,
                     $ignoredByTest,
                     $this->trigger($test, true),
+                    $this->stackTrace(),
                 );
 
                 break;
@@ -274,14 +273,14 @@ final class ErrorHandler
                 return IssueTrigger::test();
             }
 
-            if ($this->sourceFilter->includes($this->source, $trace[0]['file'])) {
+            if (SourceFilter::instance()->includes($trace[0]['file'])) {
                 $triggeredInFirstPartyCode = true;
             }
         }
 
         if (isset($trace[1]['file']) &&
             ($trace[1]['file'] === $test->file() ||
-            $this->sourceFilter->includes($this->source, $trace[1]['file']))) {
+            SourceFilter::instance()->includes($trace[1]['file']))) {
             $triggerCalledFromFirstPartyCode = true;
         }
 
@@ -357,7 +356,7 @@ final class ErrorHandler
     }
 
     /**
-     * @return list<array{file: string, line: int, class?: class-string, function?: string, type: string}>
+     * @return list<array{file: string, line: ?int, class?: class-string, function?: string, type: string}>
      */
     private function errorStackTrace(): array
     {
@@ -391,5 +390,35 @@ final class ErrorHandler
             $frame['class'] === $method['className'] &&
             isset($frame['function']) &&
             $frame['function'] === $method['methodName'];
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    private function stackTrace(): string
+    {
+        $buffer      = '';
+        $excludeList = new ExcludeList(true);
+
+        foreach ($this->errorStackTrace() as $frame) {
+            /**
+             * @see https://github.com/sebastianbergmann/phpunit/issues/6043
+             */
+            if (!isset($frame['file'])) {
+                continue;
+            }
+
+            if ($excludeList->isExcluded($frame['file'])) {
+                continue;
+            }
+
+            $buffer .= sprintf(
+                "%s:%s\n",
+                $frame['file'],
+                $frame['line'] ?? '?',
+            );
+        }
+
+        return $buffer;
     }
 }

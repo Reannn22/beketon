@@ -13,7 +13,6 @@ namespace Symfony\Component\Mime\Part\Multipart;
 
 use Symfony\Component\Mime\Exception\InvalidArgumentException;
 use Symfony\Component\Mime\Part\AbstractMultipartPart;
-use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\TextPart;
 
 /**
@@ -24,7 +23,7 @@ use Symfony\Component\Mime\Part\TextPart;
 final class FormDataPart extends AbstractMultipartPart
 {
     /**
-     * @param array<string|array|DataPart> $fields
+     * @param array<string|array|TextPart> $fields
      */
     public function __construct(
         private array $fields = [],

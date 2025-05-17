@@ -12,26 +12,33 @@ class LoanController extends Controller
 {
     public function loans($userId = null)
     {
-        $userId = $userId ?? Auth::id(); // Gunakan user ID yang dioper, atau ID user yang sedang login
+        $userId = $userId ?? Auth::id();
 
-        // Ambil semua barang yang ada
-        $items = Item::all();
+        // Ambil semua barang yang ada dan urutkan berdasarkan nama
+        $items = Item::orderBy('name')->get();
 
-        // Ambil pinjaman berdasarkan user ID
-        $loans = Loan::where('user_id', $userId)->get();
+        // Ambil pinjaman berdasarkan user ID dan urutkan berdasarkan tanggal terbaru
+        $loans = Loan::where('user_id', $userId)
+            ->with('item')  // Eager load item relation
+            ->orderBy('borrow_date', 'desc')
+            ->get();
 
-        return view('pinjamBarang', compact('items', 'loans'));
+        return view('pinjam', compact('items', 'loans'));
     }
 
     public function borrow(Request $request)
     {
-        // Validasi input
+        // Validasi input dengan pesan error yang lebih informatif
         $request->validate([
             'item_id' => 'required|exists:items,id',
-            'user' => 'required|string',
-            'borrow_date' => 'required|date',
-            'description' => 'required|string',
-            'amount' => 'required|integer|min:1|max:' . Item::find($request->item_id)->stock,
+            'user' => 'required|string|max:255',
+            'borrow_date' => 'required|date|after_or_equal:today',
+            'description' => 'required|string|max:1000',
+            'amount' => 'required|integer|min:1',
+        ], [
+            'item_id.required' => 'Silahkan pilih barang yang akan dipinjam',
+            'amount.min' => 'Jumlah minimal peminjaman adalah 1',
+            'borrow_date.after_or_equal' => 'Tanggal peminjaman tidak boleh kurang dari hari ini',
         ]);
 
         // Ambil data barang yang dipilih
@@ -65,44 +72,55 @@ class LoanController extends Controller
         return back()->with('success', 'Peminjaman berhasil!');
     }
 
-    public function return(Loan $loan)
+    public function return(Loan $loan, Request $request)
     {
-        // Pastikan loan ada
-        if (!$loan) {
-            return back()->with('error', 'Peminjaman tidak ditemukan.');
+        // Validate input
+        $request->validate([
+            'return_photo' => 'nullable|image|max:2048',
+            'return_description' => 'nullable|string|max:1000',
+        ]);
+
+        // Check if loan exists and not already returned
+        if (!$loan || $loan->return_date) {
+            return back()->with('error', 'Invalid loan or already returned');
         }
-    
-        // Cek jika status sudah 'returned'
-        if ($loan->status === 'returned') {
-            return back()->with('error', 'Barang sudah dikembalikan');
+
+        // Handle file upload if photo provided
+        if ($request->hasFile('return_photo')) {
+            $path = $request->file('return_photo')->store('return-photos', 'public');
+            $loan->return_photo = $path;
         }
-    
-        // Cek apakah item terkait masih ada (optional)
-        $item = $loan->item;
-        if (!$item) {
-            return back()->with('error', 'Barang yang dipinjam tidak ditemukan.');
-        }
-    
-        // Ambil jumlah item yang dikembalikan
-        $amount = $loan->amount;
-    
-        // Update status dan tanggal pengembalian
+
+        // Update loan status
         $loan->status = 'returned';
         $loan->return_date = now();
-        $loan->save(); // Menyimpan perubahan ke database
-    
-        // Tambahkan stok barang berdasarkan amount
-        $item->increment('stock', $amount); // Increment stok barang sesuai dengan jumlah yang dikembalikan
-    
-        // Catat log dengan deskripsi
+        $loan->return_description = $request->return_description;
+        $loan->save();
+
+        // Return stock to inventory
+        $loan->item->increment('stock', $loan->amount);
+
+        // Log the return
         Log::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item->id,
-            'amount' => $amount,
+            'user_id' => auth()->id(),
+            'item_id' => $loan->item_id,
             'action' => 'return',
+            'amount' => $loan->amount,
         ]);
-    
-        return back()->with('success', 'Barang berhasil dikembalikan');
+
+        return back()->with('success', 'Item returned successfully');
     }
-    
+
+    public function returnPage()
+    {
+        $userId = Auth::id();
+        $loans = Loan::where('user_id', $userId)
+            ->where('status', 'approved')
+            ->whereNull('return_date')
+            ->with('item')
+            ->get();
+
+        return view('return', compact('loans'));
+    }
+
 }

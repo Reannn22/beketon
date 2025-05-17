@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/var/www
+    environment:
+      - APP_ENV=local
+      - VITE_DEV_SERVER_URL=http://localhost:8080
+
+  vite:
+    build: .
+    command: npm run dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/var/www

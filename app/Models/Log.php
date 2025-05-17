@@ -6,22 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    //
     protected $fillable = [
-        'user_id',       // Tambahkan ini untuk 'user_id'
+        'user_id',
         'item_id',
-        'amount',
         'action',
-        'description',
+        'amount',
+        'description'
     ];
-
-    public function item()
-    {
-        return $this->belongsTo(Item::class);
-    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
     }
 }

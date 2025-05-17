@@ -17,7 +17,7 @@ Artisan::command('serve:dev', function () {
     $viteProcess->start();
 
     // Start Laravel server
-    $laravelProcess = new Process(['php', 'artisan', 'serve', '--host=0.0.0.0']);
+    $laravelProcess = new Process(['php', 'artisan', 'serve', '--host=localhost', '--port=8000']);
     $laravelProcess->setOptions(['create_new_console' => true]);
     $laravelProcess->run(function ($type, $buffer) {
         $this->output->write($buffer);

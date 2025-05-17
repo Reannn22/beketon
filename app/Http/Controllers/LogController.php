@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\LogsExport;
 
 class LogController extends Controller
 {
-    //
+    public function index()
+    {
+        $logs = Log::with(['user', 'item'])->orderBy('created_at', 'desc')->get();
+        return view('logs', compact('logs'));
+    }
+
     public function handle(Request $request, $logId = null)
     {
         if ($request->isMethod('get')) {
@@ -20,7 +28,7 @@ class LogController extends Controller
                 // If user is not admin, show only logs related to the logged-in user
                 $logs = Log::where('user_id', Auth::id())->get();
             }
-        
+
             return view('log', compact('logs'));
         }
 
@@ -39,5 +47,17 @@ class LogController extends Controller
         }
 
         return back()->with('error', 'Aksi tidak diizinkan.');
+    }
+
+    public function exportPDF()
+    {
+        $logs = Log::with(['user', 'item'])->orderBy('created_at', 'desc')->get();
+        $pdf = Pdf::loadView('exports.logs-pdf', ['logs' => $logs]);
+        return $pdf->download('activity-logs.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new LogsExport, 'activity-logs.xlsx');
     }
 }

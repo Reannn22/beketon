@@ -70,8 +70,17 @@
                                 d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Peminjaman</span>
-                        <!-- <span
-                            class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span> -->
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('return') }}"
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path d="M12.7071 2.29289C13.0976 2.68342 13.0976 3.31658 12.7071 3.70711L11.4142 5H16C18.7614 5 21 7.23858 21 10C21 12.7614 18.7614 15 16 15H8C7.44772 15 7 14.5523 7 14C7 13.4477 7.44772 13 8 13H16C17.6569 13 19 11.6569 19 10C19 8.34315 17.6569 7 16 7H11.4142L12.7071 8.29289C13.0976 8.68342 13.0976 9.31658 12.7071 9.70711C12.3166 10.0976 11.6834 10.0976 11.2929 9.70711L8.29289 6.70711C7.90237 6.31658 7.90237 5.68342 8.29289 5.29289L11.2929 2.29289C11.6834 1.90237 12.3166 1.90237 12.7071 2.29289Z"/>
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Pengembalian</span>
                     </a>
                 </li>
                 <li>
@@ -135,8 +144,17 @@
                                 d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Peminjaman</span>
-                        <!-- <span
-                            class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span> -->
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('return') }}"
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path d="M12.7071 2.29289C13.0976 2.68342 13.0976 3.31658 12.7071 3.70711L11.4142 5H16C18.7614 5 21 7.23858 21 10C21 12.7614 18.7614 15 16 15H8C7.44772 15 7 14.5523 7 14C7 13.4477 7.44772 13 8 13H16C17.6569 13 19 11.6569 19 10C19 8.34315 17.6569 7 16 7H11.4142L12.7071 8.29289C13.0976 8.68342 13.0976 9.31658 12.7071 9.70711C12.3166 10.0976 11.6834 10.0976 11.2929 9.70711L8.29289 6.70711C7.90237 6.31658 7.90237 5.68342 8.29289 5.29289L11.2929 2.29289C11.6834 1.90237 12.3166 1.90237 12.7071 2.29289Z"/>
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Pengembalian</span>
                     </a>
                 </li>
                 <li>
@@ -238,52 +256,126 @@
                                     {{ $loan->amount }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $loan->status }}
+                                    <span class="px-2 py-1 rounded-full text-sm
+                                        {{ $loan->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
+                                        {{ $loan->status === 'approved' ? 'bg-blue-100 text-blue-800' : '' }}
+                                        {{ $loan->status === 'returned' ? 'bg-green-100 text-green-800' : '' }}
+                                        {{ $loan->status === 'rejected' ? 'bg-red-100 text-red-800' : '' }}">
+                                        {{ ucfirst($loan->status) }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $loan->borrow_date }}
+                                    {{ $loan->borrow_date->format('d/m/Y') }}
                                 </td>
                                 <td class="px-6 py-4">
                                     @isset($loan->return_date)
-                                        {{ $loan->return_date }}
+                                        {{ $loan->return_date->format('d/m/Y') }}
                                     @else
                                         Barang Belum Dikembalikan
                                     @endisset
                                 </td>
                                 <td class="px-6 py-4">
-                                    @if ($loan->status !== 'returned')
-                                        <button data-modal-target="popup-modal-{{ $loan->id }}" data-modal-toggle="popup-modal-{{ $loan->id }}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                                            Kembalikan
-                                        </button>
-
-                                        <!-- Modal -->
-                                        <div id="popup-modal-{{ $loan->id }}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal-{{ $loan->id }}">
+                                    @if($loan->status === 'approved' && !$loan->return_date)
+                                    <button data-modal-target="returnModal-{{ $loan->id }}" data-modal-toggle="returnModal-{{ $loan->id }}"
+                                        class="font-medium text-blue-600 hover:underline">
+                                        Kembalikan
+                                    </button>
+                                    <!-- Return Modal -->
+                                    <div id="returnModal-{{ $loan->id }}" tabindex="-1" aria-hidden="true"
+                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                            <div class="relative bg-white rounded-lg shadow">
+                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                    <h3 class="text-xl font-semibold">
+                                                        Pengembalian Barang
+                                                    </h3>
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                                        data-modal-hide="returnModal-{{ $loan->id }}">
                                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                         </svg>
-                                                        <span class="sr-only">Close modal</span>
                                                     </button>
-                                                    <div class="p-4 md:p-5 text-center">
-                                                        <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                                        </svg>
-                                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Kembalikan Sekarang Yakin?</h3>
-                                                        <form action="{{ route('loans.return', $loan->id) }}" method="POST" style="display: inline-block;">
-                                                            @csrf
-                                                            <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                                                                Ya, Yakin.
-                                                            </button>
-                                                        </form>
-                                                        <button data-modal-hide="popup-modal-{{ $loan->id }}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Tidak Jadi</button>
+                                                </div>
+                                                <form action="{{ route('loans.return', $loan->id) }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="p-4 md:p-5 space-y-4">
+                                                        <div class="mb-5">
+                                                            <label class="block mb-2 text-sm font-medium text-gray-900">
+                                                                Foto Bukti Pengembalian
+                                                            </label>
+                                                            <input type="file" name="return_photo" accept="image/*"
+                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                                                        </div>
+                                                        <div class="mb-5">
+                                                            <label class="block mb-2 text-sm font-medium text-gray-900">
+                                                                Deskripsi Pengembalian
+                                                            </label>
+                                                            <textarea name="return_description" rows="4"
+                                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                                                placeholder="Deskripsi kondisi barang saat dikembalikan..."></textarea>
+                                                        </div>
                                                     </div>
+                                                    <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                                                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                                            Kembalikan Barang
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if($loan->status === 'pending')
+                                        <button data-modal-target="returnModal-{{ $loan->id }}" data-modal-toggle="returnModal-{{ $loan->id }}"
+                                            class="font-medium text-blue-600 hover:underline">
+                                            Kembalikan
+                                        </button>
+                                        <!-- Return Modal -->
+                                        <div id="returnModal-{{ $loan->id }}" tabindex="-1" aria-hidden="true"
+                                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                                <div class="relative bg-white rounded-lg shadow">
+                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                        <h3 class="text-xl font-semibold">
+                                                            Pengembalian Barang
+                                                        </h3>
+                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                                            data-modal-hide="returnModal-{{ $loan->id }}">
+                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{ route('loans.return', $loan->id) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="p-4 md:p-5 space-y-4">
+                                                            <div class="mb-5">
+                                                                <label class="block mb-2 text-sm font-medium text-gray-900">
+                                                                    Foto Bukti Pengembalian
+                                                                </label>
+                                                                <input type="file" name="return_photo" accept="image/*"
+                                                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                                                            </div>
+                                                            <div class="mb-5">
+                                                                <label class="block mb-2 text-sm font-medium text-gray-900">
+                                                                    Deskripsi Pengembalian
+                                                                </label>
+                                                                <textarea name="return_description" rows="4"
+                                                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                                                    placeholder="Deskripsi kondisi barang saat dikembalikan..."></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                                                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                                                Kembalikan Barang
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    @else
-                                        <span style="color: green;">Sudah dikembalikan</span>
                                     @endif
                                 </td>
                             </tr>

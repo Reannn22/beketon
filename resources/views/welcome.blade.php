@@ -20,10 +20,15 @@
     background: #222c1e; /* Mengubah warna ke biru */
         }
 
-            
+
     </style>
 </head>
 <body>
+    @php
+    use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\Asset;
+    @endphp
+
     <header class="bg-[#50790B] py-2 shadow-2xl shadow-white">
         <nav class="border-gray-200 px-4 lg:px-6 py-2.5">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
@@ -186,7 +191,7 @@
                 Star us on GitHub
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
-            
+
         </div>
     </footer>
 

@@ -18,9 +18,10 @@ class ItemController extends Controller
         if ($request->isMethod('post')) {
             // Validasi input
             $request->validate([
-                'name' => 'required',
-                'description' => 'nullable',
-                'stock' => 'required|integer|min:1',
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'stock' => 'required|integer|min:0',
+                'kondisi' => 'required|in:baik,rusak',
             ]);
 
             // Menambahkan item baru
@@ -34,9 +35,10 @@ class ItemController extends Controller
         if ($request->isMethod('put')) {
             // Validasi input
             $request->validate([
-                'name' => 'required',
-                'description' => 'nullable',
-                'stock' => 'required|integer|min:1',
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'stock' => 'required|integer|min:0',
+                'kondisi' => 'required|in:baik,rusak',
             ]);
 
             // Temukan item berdasarkan ID
@@ -65,5 +67,11 @@ class ItemController extends Controller
         }
 
         return back()->with('error', 'Aksi tidak diizinkan.');
+    }
+
+    public function pinjam(Item $item)
+    {
+        // Add your borrowing logic here
+        return redirect()->back()->with('success', 'Berhasil mengajukan peminjaman barang.');
     }
 }

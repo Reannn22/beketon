@@ -61,7 +61,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pinjamBarang') }}"
+                    <a href="{{ route('pinjam') }}"
                         class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
                         <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -126,7 +126,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pinjamBarang') }}"
+                    <a href="{{ route('pinjam') }}"
                         class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
                         <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"

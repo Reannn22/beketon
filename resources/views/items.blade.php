@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
     <title>Dashboard - LendEase</title>
 
     <link rel="icon" type="image/png" href="{{ asset('assets/img/Avatar.png') }}">
@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pinjamBarang') }}"
+                    <a href="{{ route('pinjam.index') }}"
                         class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
                         <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -72,8 +72,6 @@
                                 d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Peminjaman</span>
-                        <!-- <span
-                            class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span> -->
                     </a>
                 </li>
                 <li>
@@ -165,6 +163,9 @@
                                     Stock
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    Kondisi
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
                             </tr>
@@ -187,6 +188,15 @@
                                     {{ $item->stock }}
                                 </td>
                                 <td class="px-6 py-4">
+                                    <span class="px-2 py-1 rounded-full text-sm {{ $item->kondisi === 'baik' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                        {{ ucfirst($item->kondisi) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <form action="{{ route('pinjam.store', ['item' => $item->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Pinjam</button>
+                                    </form>
                                     <button data-modal-target="default-modal-{{ $item->id }}" data-modal-toggle="default-modal-{{ $item->id }}"
                                         class="font-medium text-blue-600 hover:underline" type="button">
                                         Edit
@@ -265,7 +275,7 @@
                                                                             <label for="description"
                                                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Barang
                                                                             </label>
-                                                                            <input type="text" id="description" name="description" 
+                                                                            <input type="text" id="description" name="description"
                                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                                                 value="{{ $item->description }}" required />
                                                                         </div>
@@ -273,9 +283,19 @@
                                                                             <label for="stock"
                                                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock Barang
                                                                             </label>
-                                                                            <input type="text" id="stock" name="stock" 
+                                                                            <input type="text" id="stock" name="stock"
                                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                                                 value="{{ $item->stock }}" required />
+                                                                        </div>
+                                                                        <div class="mb-5">
+                                                                            <label for="kondisi" class="block mb-2 text-sm font-medium text-gray-900">
+                                                                                Kondisi Barang
+                                                                            </label>
+                                                                            <select id="kondisi" name="kondisi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                                                                <option value="">Pilih Kondisi</option>
+                                                                                <option value="baik">Baik</option>
+                                                                                <option value="rusak">Rusak</option>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                     <!-- Modal footer -->
@@ -365,6 +385,16 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required />
                         </div>
+                        <div class="mb-5">
+                            <label for="kondisi" class="block mb-2 text-sm font-medium text-gray-900">
+                                Kondisi Barang
+                            </label>
+                            <select id="kondisi" name="kondisi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <option value="">Pilih Kondisi</option>
+                                <option value="baik">Baik</option>
+                                <option value="rusak">Rusak</option>
+                            </select>
+                        </div>
                     </div>
                     <!-- Modal footer -->
                     <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
@@ -385,7 +415,7 @@
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor" viewBox="0 0 20 20">
                 <path
-                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 1 0 0 2v4h1a1 1 0 0 1 0 2Z" />
             </svg>
             <span class="sr-only">Info</span>
             <div class="ms-3 text-sm font-medium">
@@ -409,7 +439,7 @@
             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor" viewBox="0 0 20 20">
                 <path
-                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 1 0 0 2v4h1a1 1 0 0 1 0 2Z" />
             </svg>
             <span class="sr-only">Info</span>
             <div class="ms-3 text-sm font-medium">

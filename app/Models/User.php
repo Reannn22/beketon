@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'nim',
+        'whatsapp'
     ];
 
     /**
@@ -45,5 +47,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function borrowRequests()
+    {
+        return $this->hasMany(BorrowRequest::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(AdminNotification::class);
     }
 }

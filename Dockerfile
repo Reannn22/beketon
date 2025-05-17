@@ -3,10 +3,10 @@ FROM php:8.2-cli
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git curl zip unzip libpng-dev libonig-dev libxml2-dev \
-    nodejs npm
+    nodejs npm libzip-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -37,26 +37,11 @@ RUN chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 # Generate key
 RUN php artisan key:generate --force
 
-# Expose ports
-EXPOSE 8000 8080 5173
+# Expose single port for Cloud Run
+EXPOSE 8080
 
-# Set environment variables
-ENV PORT=8080
-ENV VITE_PORT=5173
-ENV HOST=0.0.0.0
-ENV VITE_DEV_SERVER_URL=http://localhost:5173
+# Use nginx configuration
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Create a startup script that handles both environments
-RUN echo '#!/bin/bash\n\
-    if [ "$APP_ENV" = "production" ]; then\n\
-    php artisan serve --host=0.0.0.0 --port=8080\n\
-    else\n\
-    php artisan serve:dev\n\
-    fi' > /var/www/start.sh && \
-    chmod +x /var/www/start.sh
-
-COPY docker/start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
-
-# Start servers
-CMD ["/usr/local/bin/start.sh"]
+# Start Laravel and nginx
+CMD ["sh", "-c", "php artisan serve:dev --host=0.0.0.0 --port=8080"]

@@ -22,17 +22,17 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-    
+
             // Tambahkan pesan sukses
             session()->flash('success', 'Login berhasil! Selamat datang.');
-    
+
             // Arahkan berdasarkan role
             return redirect('/dashboard');
         }
-    
+
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ]);
@@ -57,7 +57,7 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => 'user', // Default role user            
+            'role' => 'user', // Default role user
         ]);
 
         return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
@@ -69,6 +69,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
     }
 }

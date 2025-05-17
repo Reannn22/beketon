@@ -47,15 +47,14 @@ final class CodeCoverage
 {
     private static ?self $instance                                      = null;
     private ?\SebastianBergmann\CodeCoverage\CodeCoverage $codeCoverage = null;
-    private ?Driver $driver                                             = null;
-    private bool $collecting                                            = false;
-    private ?TestCase $test                                             = null;
-    private ?Timer $timer                                               = null;
 
     /**
-     * @var array<string,list<int>>
+     * @phpstan-ignore property.internalClass
      */
-    private array $linesToBeIgnored = [];
+    private ?Driver $driver  = null;
+    private bool $collecting = false;
+    private ?TestCase $test  = null;
+    private ?Timer $timer    = null;
 
     public static function instance(): self
     {
@@ -110,11 +109,11 @@ final class CodeCoverage
 
         if ($codeCoverageFilterRegistry->get()->isEmpty()) {
             if (!$codeCoverageFilterRegistry->configured()) {
-                EventFacade::emitter()->testRunnerTriggeredWarning(
+                EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                     'No filter is configured, code coverage will not be processed',
                 );
             } else {
-                EventFacade::emitter()->testRunnerTriggeredWarning(
+                EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                     'Incorrect filter configuration, code coverage will not be processed',
                 );
             }
@@ -136,9 +135,12 @@ final class CodeCoverage
         return $this->codeCoverage;
     }
 
-    public function driver(): Driver
+    /**
+     * @return non-empty-string
+     */
+    public function driverNameAndVersion(): string
     {
-        return $this->driver;
+        return $this->driver->nameAndVersion();
     }
 
     public function start(TestCase $test): void
@@ -171,7 +173,7 @@ final class CodeCoverage
      * @param array<string,list<int>>|false $linesToBeCovered
      * @param array<string,list<int>>       $linesToBeUsed
      */
-    public function stop(bool $append = true, array|false $linesToBeCovered = [], array $linesToBeUsed = []): void
+    public function stop(bool $append, array|false $linesToBeCovered = [], array $linesToBeUsed = []): void
     {
         if (!$this->collecting) {
             return;
@@ -188,7 +190,7 @@ final class CodeCoverage
         }
 
         /* @noinspection UnusedFunctionResultInspection */
-        $this->codeCoverage->stop($append, $status, $linesToBeCovered, $linesToBeUsed, $this->linesToBeIgnored);
+        $this->codeCoverage->stop($append, $status, $linesToBeCovered, $linesToBeUsed);
 
         $this->test       = null;
         $this->collecting = false;
@@ -340,22 +342,6 @@ final class CodeCoverage
         }
     }
 
-    /**
-     * @param array<string,list<int>> $linesToBeIgnored
-     */
-    public function ignoreLines(array $linesToBeIgnored): void
-    {
-        $this->linesToBeIgnored = $linesToBeIgnored;
-    }
-
-    /**
-     * @return array<string,list<int>>
-     */
-    public function linesToBeIgnored(): array
-    {
-        return $this->linesToBeIgnored;
-    }
-
     private function activate(Filter $filter, bool $pathCoverage): void
     {
         try {
@@ -370,7 +356,7 @@ final class CodeCoverage
                 $filter,
             );
         } catch (CodeCoverageException $e) {
-            EventFacade::emitter()->testRunnerTriggeredWarning(
+            EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 $e->getMessage(),
             );
         }
