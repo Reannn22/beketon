@@ -44,11 +44,19 @@ EXPOSE 8000 8080 5173
 ENV PORT=8080
 ENV VITE_PORT=5173
 ENV HOST=0.0.0.0
+ENV VITE_DEV_SERVER_URL=http://localhost:5173
 
-# Create a startup script
+# Create a startup script that handles both environments
 RUN echo '#!/bin/bash\n\
-php artisan serve:dev' > /var/www/start.sh && \
-chmod +x /var/www/start.sh
+    if [ "$APP_ENV" = "production" ]; then\n\
+    php artisan serve --host=0.0.0.0 --port=8080\n\
+    else\n\
+    php artisan serve:dev\n\
+    fi' > /var/www/start.sh && \
+    chmod +x /var/www/start.sh
+
+COPY docker/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 # Start servers
-CMD ["/var/www/start.sh"]
+CMD ["/usr/local/bin/start.sh"]

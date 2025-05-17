@@ -10,19 +10,20 @@ Artisan::command('inspire', function () {
 
 Artisan::command('serve:dev', function () {
     $this->info('Starting development servers...');
-    
+
     // Start Vite development server
     $viteProcess = new Process(['npm', 'run', 'dev']);
-    $viteProcess->disableOutput(); // Disable TTY requirement
+    $viteProcess->setOptions(['create_new_console' => true]);
     $viteProcess->start();
-    
-    // Start Laravel server with port 8080
-    $this->call('serve', [
-        '--host' => '0.0.0.0',
-        '--port' => '8080'
-    ]);
-    
-    // Clean up Vite process when Laravel server stops
+
+    // Start Laravel server
+    $laravelProcess = new Process(['php', 'artisan', 'serve', '--host=0.0.0.0']);
+    $laravelProcess->setOptions(['create_new_console' => true]);
+    $laravelProcess->run(function ($type, $buffer) {
+        $this->output->write($buffer);
+    });
+
+    // Clean up processes
     if ($viteProcess->isRunning()) {
         $viteProcess->stop();
     }
