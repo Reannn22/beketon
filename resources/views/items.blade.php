@@ -39,8 +39,8 @@
             <ul class="space-y-2 py-4 font-medium">
                 <li>
                     <a href="{{ route('dashboard') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 22 21">
                             <path
@@ -53,7 +53,7 @@
                 </li>
                 <li>
                     <a href="{{ route('items') }}"
-                        class="flex items-center p-2 text-white rounded-lg bg-primary group">
+                        class="flex items-center p-2 text-white rounded-lg bg-[#50790B] group">
                         <svg class="w-5 h-5 text-white transition duration-75" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                             <path
@@ -64,8 +64,8 @@
                 </li>
                 <li>
                     <a href="{{ route('pinjamBarang') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
                             <path
@@ -78,8 +78,8 @@
                 </li>
                 <li>
                     <a href="{{ route('users') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 18">
                             <path
@@ -90,8 +90,8 @@
                 </li>
                 <li>
                     <a href="{{ route('logs') }}"
-                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-primary group">
-                        <svg class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
+                        class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-[#50790B] group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 512 512">
                             <path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/>
@@ -104,7 +104,7 @@
                         class="flex items-center p-2 text-gray-900 hover:text-white rounded-lg hover:bg-red-600 group">
                         @csrf
                         <svg
-                            class="flex-shrink-0 w-5 h-5 text-primary transition duration-75 group-hover:text-white"
+                            class="flex-shrink-0 w-5 h-5 text-[#50790B] transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 512 512">
                             <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
@@ -119,7 +119,7 @@
     <!-- Content -->
     <div class="sm:ml-64 bg-[#EEEEEE] h-screen pb-5">
         <div class="rounded-lg">
-            <div class="flex flex-col items-start justify-start px-4 py-4 h-72 mb-4 bg-primary">
+            <div class="flex flex-col items-start justify-start px-4 py-4 h-72 mb-4 bg-[#50790B]">
                 <p class="text-md text-white">
                     Pages / Inventaris
                 </p>
@@ -131,7 +131,7 @@
                 <div class="flex flex-col gap-6 justify-start items-start p-8 lg:p-0">
                     <h1 class="text-2xl font-bold">List Inventaris</h1>
                     <button data-modal-target="addItem-modal" data-modal-toggle="addItem-modal"
-                        class="font-medium bg-secondary text-white px-9 py-2 rounded-lg hover:underline" type="button">
+                        class="font-medium bg-[#A4C639] text-white px-9 py-2 rounded-lg hover:underline" type="button">
                         Tambah Barang
                     </button>
                 </div>
