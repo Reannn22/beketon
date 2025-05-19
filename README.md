@@ -1,6 +1,6 @@
-# Pinjampro: Sistem Informasi Peminjaman Barang
+# LendEase: Sistem Informasi Peminjaman Barang
 
-**Pinjampro** adalah aplikasi web yang dirancang untuk mengelola proses peminjaman barang dengan fitur pengguna dan admin. Sistem ini memungkinkan pengguna meminjam barang yang tersedia, sementara admin dapat mengelola barang, pengguna, dan aktivitas dalam sistem.
+**LendEase** adalah aplikasi web yang dirancang untuk mengelola proses peminjaman barang dengan fitur pengguna dan admin. Sistem ini memungkinkan pengguna meminjam barang yang tersedia, sementara admin dapat mengelola barang, pengguna, dan aktivitas dalam sistem.
 
 ---
 
