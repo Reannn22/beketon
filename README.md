@@ -1,4 +1,4 @@
-# LendEase: Sistem Informasi Peminjaman Barang
+# LendEase: Sistem Informasi Peminjaman Barang dan (Pengajuan Kegiatan; Coming soon)
 
 **LendEase** adalah aplikasi web yang dirancang untuk mengelola proses peminjaman barang dengan fitur pengguna dan admin. Sistem ini memungkinkan pengguna meminjam barang yang tersedia, sementara admin dapat mengelola barang, pengguna, dan aktivitas dalam sistem.
 
